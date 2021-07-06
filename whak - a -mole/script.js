@@ -1,6 +1,6 @@
-const holes = document.querySelectorAll(".hole");
-const scoreBoard = document.querySelector(".score");
-const moles = document.querySelectorAll(".mole");
+const holes = document.querySelectorAll('.hole');
+const scoreBoard = document.querySelector('.score');
+const moles = document.querySelectorAll('.mole');
 let lastHole;
 let timeUp = false;
 let score = 0;
@@ -27,9 +27,9 @@ function randomHole(holes) {
 function peep() {
   const time = randomTime(levelSpead, levelSpead);
   const hole = randomHole(holes);
-  hole.classList.add("up");
+  hole.classList.add('up');
   setTimeout(() => {
-    hole.classList.remove("up");
+    hole.classList.remove('up');
     if (!timeUp) peep();
   }, time);
 }
@@ -53,24 +53,24 @@ function startGame() {
 }
 //funcion count score
 function countScore() {
-  arr = JSON.parse(localStorage.getItem("arr")) || [];
+  arr = JSON.parse(localStorage.getItem('arr')) || [];
   arr.push(score);
-  localStorage.setItem("arr", JSON.stringify(arr));
+  localStorage.setItem('arr', JSON.stringify(arr));
 }
-function bonk(e) {
+function bonk(event) {
   if (!isDisable) return; // stop the game after setTimeout time
 
-  if (!e.isTrusted) return; // cheater!
+  if (!event.isTrusted) return; // cheater!
   score = score + 1;
-  this.parentNode.classList.remove("up");
+  this.parentNode.classList.remove('up');
   scoreBoard.textContent = score;
 }
 
 // function level up
 function lvlUp() {
   level < 8
-    ? (document.getElementById("par").innerHTML = `Level: ${level}`)
-    : confirm("Are u want start again ?") //if level more then 7 return back to first level
+    ? (document.getElementById('par').innerHTML = `Level: ${level}`)
+    : confirm('Are u want start again ?') //if level more then 7 return back to first level
     ? initializingPage()
     : false;
 
@@ -78,17 +78,17 @@ function lvlUp() {
 }
 //function disable button
 function disable() {
-  let btn = document.getElementById("btn");
+  let btn = document.getElementById('btn');
   isDisable = !isDisable;
   btn.disabled = isDisable;
 }
 //function draw a table with score
 function drawTable() {
-  let table = document.getElementById("table");
+  let table = document.getElementById('table');
   table.innerHTML = `<tr><th>Level</th><th>Score</th></tr>`;
 
   arr.forEach((item, index) => {
-    let tr = document.createElement("tr");
+    let tr = document.createElement('tr');
     tr.innerHTML = `<td>${index + 1}</td><td>${item}</td>`;
     table.append(tr);
   });
@@ -97,11 +97,11 @@ function drawTable() {
 // function adds settings after reboot
 function initializingPage() {
   localStorage.clear();
-  localStorage.setItem("score", "");
+  localStorage.setItem('score', '');
   level = 1;
   levelSpead = 1100;
-  document.getElementById("par").innerHTML = `Level: ${level}`;
+  document.getElementById('par').innerHTML = `Level: ${level}`;
 }
 initializingPage();
 
-moles.forEach((mole) => mole.addEventListener("click", bonk));
+moles.forEach((mole) => mole.addEventListener('click', bonk));
